@@ -21,6 +21,12 @@ class TextThemeData {
       fontWeight: FontWeight.w700,
       color: Palette.primaryHeadlineColor);
 
+  static const TextStyle titleBold = TextStyle(
+      fontSize: 24,
+      fontFamily: 'RobotoBold',
+      fontWeight: FontWeight.w700,
+      color: Colors.black);
+
   static const TextStyle displayRegular = TextStyle(
       fontSize: 18, fontFamily: 'Roboto', color: Palette.primaryHeadlineColor);
 
@@ -31,10 +37,10 @@ class TextThemeData {
 
   static TextTheme get textTheme {
     return const TextTheme(
-      displayLarge: displayLarge,
-      headlineLarge: displayBold,
-      displayMedium: displayRegular,
-      displaySmall: displaySmall,
-    );
+        displayLarge: displayLarge,
+        headlineLarge: displayBold,
+        displayMedium: displayRegular,
+        displaySmall: displaySmall,
+        titleLarge: titleBold);
   }
 }

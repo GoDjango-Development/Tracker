@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:tracker/contants/image_string.dart';
+import 'package:tracker/services/login_class.dart';
+import 'package:tracker/widgets/custom_alert_dialog.dart';
 import 'package:tracker/widgets/custom_elevated_bottom.dart';
 import 'package:tracker/widgets/custom_text_form_field.dart';
 
@@ -22,6 +24,8 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController portController = TextEditingController();
   final TextEditingController userController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  // LoginClass
+  LoginClass loginClass = LoginClass();
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +171,17 @@ class _LoginPageState extends State<LoginPage> {
             bool validated = _formKey.currentState?.validate() ?? false;
             if (validated) {
               _formKey.currentState!.save();
-              Get.offAllNamed('/map');
+              String token = loginClass.getHash(
+                  userController.text, passwordController.text);
+              loginClass.login(token);
+              if (loginClass.loggedIn) {
+                Get.offAllNamed('/map');
+              } else {
+                CustomAlertDialog(
+                  mensaje: 'Incorrect server or credentials',
+                  onTap: () => Get.back(),
+                );
+              }
             }
           }),
     );

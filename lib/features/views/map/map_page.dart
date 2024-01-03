@@ -6,7 +6,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:tracker/contants/palette.dart';
 import 'package:tracker/features/views/map/map_helper.dart';
-// import 'package:tracker/widgets/custom_app_bar.dart';
+import 'package:tracker/widgets/custom_app_bar.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -31,14 +31,8 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: const PreferredSize(
-      //   preferredSize: Size.fromHeight(56),
-      //   child: CustomAppBar(),
-      // ),
       body: Stack(
-        children: [
-          _map(),
-        ],
+        children: [_map(), const CustomAppBar()],
       ),
     );
   }
