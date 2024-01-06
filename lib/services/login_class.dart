@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'comm_server.dart';
 import 'package:crypto/crypto.dart';
 
@@ -7,7 +9,12 @@ class LoginClass {
   CommServer comm = CommServer();
 
   bool loggedIn = false;
-  void login(String token) {
+
+  String dns = '';
+  String port = '';
+
+  void login(String token, String dnsTxt, String portTxt) {
+    _saveValues(dnsTxt, portTxt);
     loggedIn = true;
   }
 
@@ -21,6 +28,12 @@ class LoginClass {
 
   bool dummy() {
     return true;
+  }
+
+  Future<void> _saveValues(String dnsTxt, String portTxt) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('DNSText', dnsTxt);
+    prefs.setString('PortText', portTxt);
   }
 
   // generate Hash

@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:social_share/social_share.dart';
 import 'package:tracker/contants/image_string.dart';
 import 'package:tracker/contants/palette.dart';
+import 'package:tracker/features/views/map/map_helper.dart';
+
+import '../utils/theme.dart';
 
 class CustomMenu extends StatelessWidget {
   const CustomMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
+    //Custom Text theme
+    TextTheme textTheme = TextThemeData.textTheme;
     Size size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.only(right: size.width * 0.3),
@@ -21,21 +27,34 @@ class CustomMenu extends StatelessWidget {
               child: Column(
                 children: [
                   _space(),
-                  Image.asset(
-                    ImageString.logo,
-                    height: 160,
+                  Text(
+                    'Tracker'.toUpperCase(),
+                    style: textTheme.displayLarge,
                   ),
+                  _space(),
+                  _logo(textTheme),
                   _space(),
                   const Divider(
                     color: Palette.focusColor,
                   ),
+                  _space(),
                   const MenuItem(
-                      label: 'LogOut',
+                      label: 'Share Position',
+                      route: 'share',
+                      icon: LineAwesomeIcons.share),
+                  _space(),
+                  const MenuItem(
+                      label: 'Logout',
                       route: '/login',
-                      icon: LineAwesomeIcons.alternate_sign_out)
+                      icon: LineAwesomeIcons.alternate_sign_out),
+                  _space(),
                 ],
               ),
-            )
+            ),
+            Image.asset(
+              ImageString.logoDjango,
+              width: 50,
+            ),
           ],
         ),
       ),
@@ -45,6 +64,27 @@ class CustomMenu extends StatelessWidget {
   SizedBox _space() {
     return const SizedBox(
       height: 10,
+    );
+  }
+
+  Widget _logo(TextTheme textTheme) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Image.asset(
+            ImageString.logo,
+            width: 140,
+            height: 160,
+          ),
+          Text(
+            'Powered by TFProtocol',
+            style: textTheme.displaySmall,
+            textAlign: TextAlign.end,
+          )
+        ],
+      ),
     );
   }
 }
@@ -61,8 +101,11 @@ class MenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MapHelper mapHelper = MapHelper();
     return GestureDetector(
-      onTap: () => Get.offAllNamed(route),
+      onTap: () {
+        route != 'share' ? Get.offAllNamed(route) : _shareData(mapHelper);
+      },
       child: Column(
         children: [
           Padding(
@@ -90,8 +133,6 @@ class MenuItem extends StatelessWidget {
                         style: const TextStyle(
                             fontSize: 20,
                             color: Palette.segundaryColor,
-                            // color: Colors.white,
-                            // fontWeight: FontWeight.bold,
                             fontFamily: 'Roboto'),
                       ),
                     ),
@@ -110,5 +151,13 @@ class MenuItem extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _shareData(MapHelper mapHelper) async {
+    final position = await mapHelper.setInitialPosition();
+    double latitud = position.latitude;
+    double longitud = position.longitude;
+    SocialShare.shareWhatsapp('Position lat: $latitud, long: $longitud');
+    Get.back();
   }
 }

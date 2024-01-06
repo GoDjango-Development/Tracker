@@ -18,11 +18,10 @@ class MapHelper {
 
   Future<LatLng> setInitialPosition() async {
     // Load Initial Position
-    final position = await Geolocator.getCurrentPosition();
+    position = await Geolocator.getCurrentPosition();
     LatLng initialPosition = const LatLng(0, 0);
     if (position.latitude.isFinite) {
       initialPosition = LatLng(position.latitude, position.longitude);
-      log('InitPosition: $initialPosition');
       return initialPosition;
     }
     return initialPosition;

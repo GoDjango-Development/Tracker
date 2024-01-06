@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tracker/contants/image_string.dart';
 import 'package:tracker/services/login_class.dart';
 import 'package:tracker/widgets/custom_alert_dialog.dart';
@@ -19,13 +20,27 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   //Global Key
   final _formKey = GlobalKey<FormState>();
-  // Controllers
+  // LoginClass
+  LoginClass loginClass = LoginClass();
+  // Text Controllers
   final TextEditingController dnsController = TextEditingController();
   final TextEditingController portController = TextEditingController();
   final TextEditingController userController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  // LoginClass
-  LoginClass loginClass = LoginClass();
+
+  @override
+  void initState() {
+    _loadSavedValues();
+    super.initState();
+  }
+
+  Future<void> _loadSavedValues() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      dnsController.text = prefs.getString('DNSText') ?? '';
+      portController.text = prefs.getString('PortText') ?? '';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,21 +66,23 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _logo(textTheme),
-                // const Divider(
-                //   color: Palette.segundaryColor,
-                //   indent: 15,
-                //   endIndent: 15,
-                // ),
-                _spacer(),
+                _spacer(10),
                 _dnsField(),
-                _spacer(),
+                _spacer(10),
                 _portField(),
-                _spacer(),
+                _spacer(10),
                 _userField(),
-                _spacer(),
+                _spacer(10),
                 _passwordField(),
-                _spacer(),
+                _spacer(10),
                 _buttomField(size),
+                _spacer(50),
+                Center(
+                  child: Image.asset(
+                    ImageString.logoDjango,
+                    width: 50,
+                  ),
+                ),
               ],
             ),
           ),
@@ -74,9 +91,9 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  SizedBox _spacer() {
-    return const SizedBox(
-      height: 10,
+  SizedBox _spacer(double heigth) {
+    return SizedBox(
+      height: heigth,
     );
   }
 
@@ -119,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _portField() {
     return CustomTextFormField(
       controller: portController,
-      textInputType: TextInputType.number,
+      textInputType: TextInputType.text,
       icon: Icons.compare_arrows_sharp,
       label: 'Port',
       validated: (value) {
@@ -154,8 +171,8 @@ class _LoginPageState extends State<LoginPage> {
       label: 'Password',
       obscureText: true,
       validated: (value) {
-        if (value!.length <= 6) {
-          return 'Password field must be at least 6 characters';
+        if (value!.isEmpty) {
+          return 'Password field is required';
         }
         return null;
       },
@@ -166,14 +183,14 @@ class _LoginPageState extends State<LoginPage> {
     return SizedBox(
       width: size.width,
       child: CustomElevatedBottom(
-          text: 'LOG IN',
+          text: 'LOGIN',
           onPressed: () {
             bool validated = _formKey.currentState?.validate() ?? false;
             if (validated) {
               _formKey.currentState!.save();
               String token = loginClass.getHash(
                   userController.text, passwordController.text);
-              loginClass.login(token);
+              loginClass.login(token, dnsController.text, portController.text);
               if (loginClass.loggedIn) {
                 Get.offAllNamed('/map');
               } else {
