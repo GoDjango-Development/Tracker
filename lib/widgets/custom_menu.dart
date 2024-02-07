@@ -17,6 +17,7 @@ class CustomMenu extends StatelessWidget {
     TextTheme textTheme = TextThemeData.textTheme;
     Size size = MediaQuery.of(context).size;
     return Container(
+      height: size.height,
       padding: EdgeInsets.only(right: size.width * 0.3),
       child: ColoredBox(
         color: Colors.white,

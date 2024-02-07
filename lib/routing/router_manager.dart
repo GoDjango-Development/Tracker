@@ -10,6 +10,6 @@ class RouterManager {
 
   static void configureRoute() {
     Get.config(
-        enableLog: true, defaultTransition: Transition.leftToRightWithFade);
+        enableLog: true, defaultTransition: Transition.cupertino);
   }
 }

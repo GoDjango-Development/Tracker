@@ -25,7 +25,7 @@ class TextThemeData {
       fontSize: 24,
       fontFamily: 'RobotoBold',
       fontWeight: FontWeight.w700,
-      color: Colors.black);
+      color: Palette.primaryHeadlineColor);
 
   static const TextStyle displayRegular = TextStyle(
       fontSize: 18, fontFamily: 'Roboto', color: Palette.primaryHeadlineColor);
