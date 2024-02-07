@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:tracker/contants/palette.dart';
@@ -21,7 +20,7 @@ class _MapPageState extends State<MapPage> {
   MapController mapController = MapController();
   MapHelper mapHelper = MapHelper();
   late LatLng initialPosition;
-  late Position currentPosition;
+  // late Position currentPosition;
 
   @override
   void initState() {

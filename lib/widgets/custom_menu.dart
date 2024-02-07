@@ -155,10 +155,10 @@ class MenuItem extends StatelessWidget {
   }
 
   _shareData(MapHelper mapHelper) async {
-    final position = await mapHelper.setInitialPosition();
-    double latitud = position.latitude;
-    double longitud = position.longitude;
-    SocialShare.shareWhatsapp('Position lat: $latitud, long: $longitud');
+    // final position = await mapHelper.setInitialPosition();
+    // double latitud = position.latitude;
+    // double longitud = position.longitude;
+    // SocialShare.shareWhatsapp('Position lat: $latitud, long: $longitud');
     Get.back();
   }
 }
