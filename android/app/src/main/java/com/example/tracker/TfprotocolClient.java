@@ -1,8 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package cu.alexgi.test_tfprotocol;
+package com.example.tracker;
 
 import android.telecom.Call;
 
@@ -65,11 +61,11 @@ public class TfprotocolClient {
 
 //        connect();
 
-//        Utils.runThread(() -> tfprotocol.echoCommand("CONECTADO"));
     }
 
     public void connect(){
         Utils.runThread(() -> tfprotocol.connect(UDPKeepAlive.TYPE.UDP_PROCHECK, 3, 3, 3));
+        Utils.runThread(() -> tfprotocol.echoCommand("CONECTADO"));
     }
 
     public void disconnect(){

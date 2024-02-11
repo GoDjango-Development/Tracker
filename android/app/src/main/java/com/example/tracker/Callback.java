@@ -1,4 +1,4 @@
-package cu.alexgi.test_tfprotocol;
+package com.example.tracker;
 
 import com.google.gson.Gson;
 import com.nerox.client.Tfprotocol;
@@ -151,157 +151,126 @@ public class Callback implements ITfprotocolCallback{
 
     @Override
     public void mkdirCallback(StatusInfo status) {
-        ITfprotocolCallback.super.mkdirCallback(status);
     }
 
     @Override
     public void delCallback(StatusInfo status) {
-        ITfprotocolCallback.super.delCallback(status);
     }
 
     @Override
     public void rmdirCallback(StatusInfo status) {
-        ITfprotocolCallback.super.rmdirCallback(status);
     }
 
     @Override
     public void copyCallback(StatusInfo status) {
-        ITfprotocolCallback.super.copyCallback(status);
     }
 
     @Override
     public void touchCallback(StatusInfo status) {
-        ITfprotocolCallback.super.touchCallback(status);
     }
 
     @Override
     public void fupdCallback(StatusInfo status) {
-        ITfprotocolCallback.super.fupdCallback(status);
     }
 
     @Override
     public void cpdirCallback(StatusInfo status) {
-        ITfprotocolCallback.super.cpdirCallback(status);
     }
 
     @Override
     public void xcopyCallback(StatusInfo status) {
-        ITfprotocolCallback.super.xcopyCallback(status);
     }
 
     @Override
     public void xdelCallback(StatusInfo status) {
-        ITfprotocolCallback.super.xdelCallback(status);
     }
 
     @Override
     public void xrmdirCallback(StatusInfo status) {
-        ITfprotocolCallback.super.xrmdirCallback(status);
     }
 
     @Override
     public void lockCallback(StatusInfo status) {
-        ITfprotocolCallback.super.lockCallback(status);
     }
 
     @Override
     public void renamCallback(StatusInfo status) {
-        ITfprotocolCallback.super.renamCallback(status);
         Utils.runUiThread(() -> platfrom.invokeMethod("renamCallback", new Gson().toJson(status, StatusInfo.class)));
     }
 
     @Override
     public void keepAliveCallback(StatusInfo status) {
-        ITfprotocolCallback.super.keepAliveCallback(status);
     }
 
     @Override
     public void chmodCallback(StatusInfo chmodStatus) {
-        ITfprotocolCallback.super.chmodCallback(chmodStatus);
     }
 
     @Override
     public void chownCallback(StatusInfo chownStatus) {
-        ITfprotocolCallback.super.chownCallback(chownStatus);
     }
 
     @Override
     public void getCanCallback(StatusInfo pcanStatus, Easyreum easyreum) {
-        ITfprotocolCallback.super.getCanCallback(pcanStatus, easyreum);
     }
 
     @Override
     public void putCanCallback(StatusInfo statusInfo, Easyreum easyreum) {
-        ITfprotocolCallback.super.putCanCallback(statusInfo, easyreum);
     }
 
     @Override
     public void sha256Callback(StatusInfo statusInfo) {
-        ITfprotocolCallback.super.sha256Callback(statusInfo);
     }
 
     @Override
     public void prockeyCallback(StatusInfo statusInfo) {
-        ITfprotocolCallback.super.prockeyCallback(statusInfo);
     }
 
     @Override
     public void freespCallback(StatusInfo buildStatusInfo) {
-        ITfprotocolCallback.super.freespCallback(buildStatusInfo);
     }
 
     @Override
     public void udateCallback(StatusInfo udate) {
-        ITfprotocolCallback.super.udateCallback(udate);
     }
 
     @Override
     public void ndateCallback(StatusInfo ndate) {
-        ITfprotocolCallback.super.ndateCallback(ndate);
     }
 
     @Override
     public void getWriteCallback(Tfprotocol.Codes codes) {
-        ITfprotocolCallback.super.getWriteCallback(codes);
     }
 
     @Override
     public void getReadCallback(StatusInfo statusInfo) {
-        ITfprotocolCallback.super.getReadCallback(statusInfo);
     }
 
     @Override
     public void nigmaCallback(StatusInfo bld_stat_inf) {
-        ITfprotocolCallback.super.nigmaCallback(bld_stat_inf);
     }
 
     @Override
     public void rmSecureDirectoryCallback(StatusInfo bld_stat_inf) {
-        ITfprotocolCallback.super.rmSecureDirectoryCallback(bld_stat_inf);
     }
 
     @Override
     public void lsv2Callback(StatusInfo buildStatusInfo) {
-        ITfprotocolCallback.super.lsv2Callback(buildStatusInfo);
     }
 
     @Override
     public void fstypeCallback(TfprotocolConsts.FSTYPE value) {
-        ITfprotocolCallback.super.fstypeCallback(value);
     }
 
     @Override
     public void fstypelsCallback(TfprotocolConsts.FSTYPE value) {
-        ITfprotocolCallback.super.fstypelsCallback(value);
     }
 
     @Override
     public void fstatlsCommand(byte b, TfprotocolConsts.FSTYPE value, long wrap, long wrap1, long wrap2) {
-        ITfprotocolCallback.super.fstatlsCommand(b, value, wrap, wrap1, wrap2);
     }
 
     @Override
     public void lsrv2Callback(StatusInfo statusInfo) {
-        ITfprotocolCallback.super.lsrv2Callback(statusInfo);
     }
 }

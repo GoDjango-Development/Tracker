@@ -6,7 +6,7 @@ import 'comm_server.dart';
 import 'package:crypto/crypto.dart';
 
 class LoginClass {
-  CommServer comm = CommServer();
+  CommServer comm = const CommServer();
 
   bool loggedIn = false;
 
