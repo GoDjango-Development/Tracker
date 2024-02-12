@@ -36,6 +36,10 @@ public class Utils {
             t.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }catch (RuntimeException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
