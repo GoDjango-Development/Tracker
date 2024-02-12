@@ -58,18 +58,25 @@ public class TfprotocolClient {
                 len,
                 protocol,
                 callback);
-
-//        connect();
-
     }
 
     public void connect(){
-        Utils.runThread(() -> tfprotocol.connect(UDPKeepAlive.TYPE.UDP_PROCHECK, 3, 3, 3));
-        Utils.runThread(() -> tfprotocol.echoCommand("CONECTADO"));
+        try{
+            Utils.runThread(() {
+                tfprotocol.connect(UDPKeepAlive.TYPE.UDP_PROCHECK, 3, 3, 3);
+                tfprotocol.echoCommand("CONECTADO")
+            });
+        }catch(RuntimeException e){
+            e.printStackTrace();
+        }
     }
 
     public void disconnect(){
-        Utils.runThread(() -> this.tfprotocol.disconnect());
+        try{
+            Utils.runThread(() -> this.tfprotocol.disconnect());
+        }catch(RuntimeException e){
+            e.printStackTrace();
+        }
     }
 
     private boolean isConnect(){
@@ -78,19 +85,31 @@ public class TfprotocolClient {
     }
 
     public void sup(String path, byte[] data, int timeout){
-        Utils.runThread(() -> {
-            InputStream inputStream = new ByteArrayInputStream(data);
-            this.tfprotocol.supCommand(path, inputStream, timeout);
-        });
+        try{
+            Utils.runThread(() -> {
+                InputStream inputStream = new ByteArrayInputStream(data);
+                this.tfprotocol.supCommand(path, inputStream, timeout);
+            });
+        }catch(RuntimeException e){
+            e.printStackTrace();
+        }
     }
 
     public void fstat(){
-        String path = Utils.sha256(user + password) + ".sd";
-        Utils.runThread(() -> this.tfprotocol.fstatCommand(path));
+        try{
+            String path = Utils.sha256(user + password) + ".sd";
+            Utils.runThread(() -> this.tfprotocol.fstatCommand(path));
+        }catch(RuntimeException e){
+            e.printStackTrace();
+        }
     }
 
     public void rename(String pathOld, String pathNew){
-        Utils.runThread(() -> this.tfprotocol.renamCommand(pathOld, pathNew));
+        try{
+            Utils.runThread(() -> this.tfprotocol.renamCommand(pathOld, pathNew));
+        }catch(RuntimeException e){
+            e.printStackTrace();
+        }
     }
 
     private String normalizePath(String path){
